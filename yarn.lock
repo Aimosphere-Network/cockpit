@@ -4986,6 +4986,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cockpit@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "cockpit@workspace:."
+  dependencies:
+    "@polkadot/api": "npm:^12.2.3"
+    "@polkadot/extension-dapp": "npm:^0.50.1"
+    "@polkadot/keyring": "npm:^13.0.2"
+    "@polkadot/networks": "npm:^13.0.2"
+    "@polkadot/types": "npm:^12.2.3"
+    "@polkadot/ui-keyring": "npm:^3.8.3"
+    "@polkadot/ui-settings": "npm:^3.8.3"
+    "@polkadot/util": "npm:^13.0.2"
+    "@polkadot/util-crypto": "npm:^13.0.2"
+    eslint: "npm:^8.57.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-config-react-app: "npm:^7.0.1"
+    gh-pages: "npm:^6.1.1"
+    node-polyfill-webpack-plugin: "npm:^4.0.0"
+    prettier: "npm:3.3.3"
+    prop-types: "npm:^15.8.1"
+    react: "npm:^18.3.1"
+    react-app-rewired: "npm:^2.2.1"
+    react-copy-to-clipboard: "npm:^5.1.0"
+    react-dom: "npm:^18.3.1"
+    react-scripts: "npm:^5.0.1"
+    semantic-ui-css: "Semantic-Org/Semantic-UI-CSS#master"
+    semantic-ui-react: "npm:^2.1.5"
+    semistandard: "npm:^17.0.0"
+    stream-browserify: "npm:^3.0.0"
+  languageName: unknown
+  linkType: soft
+
 "collect-v8-coverage@npm:^1.0.0":
   version: 1.0.1
   resolution: "collect-v8-coverage@npm:1.0.1"
@@ -13939,38 +13971,6 @@ __metadata:
   checksum: 10/e6c0d318286db8bf1dd3fa633798f6772cd3888e010e8224ba271cb8ff2b41a64bbebf938a2f7cacad7e319c4c963648fe9e9376c564229bd6029ee4d4f57c3f
   languageName: node
   linkType: hard
-
-"substrate-front-end-template@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "substrate-front-end-template@workspace:."
-  dependencies:
-    "@polkadot/api": "npm:^12.2.3"
-    "@polkadot/extension-dapp": "npm:^0.50.1"
-    "@polkadot/keyring": "npm:^13.0.2"
-    "@polkadot/networks": "npm:^13.0.2"
-    "@polkadot/types": "npm:^12.2.3"
-    "@polkadot/ui-keyring": "npm:^3.8.3"
-    "@polkadot/ui-settings": "npm:^3.8.3"
-    "@polkadot/util": "npm:^13.0.2"
-    "@polkadot/util-crypto": "npm:^13.0.2"
-    eslint: "npm:^8.57.0"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-react-app: "npm:^7.0.1"
-    gh-pages: "npm:^6.1.1"
-    node-polyfill-webpack-plugin: "npm:^4.0.0"
-    prettier: "npm:3.3.3"
-    prop-types: "npm:^15.8.1"
-    react: "npm:^18.3.1"
-    react-app-rewired: "npm:^2.2.1"
-    react-copy-to-clipboard: "npm:^5.1.0"
-    react-dom: "npm:^18.3.1"
-    react-scripts: "npm:^5.0.1"
-    semantic-ui-css: "Semantic-Org/Semantic-UI-CSS#master"
-    semantic-ui-react: "npm:^2.1.5"
-    semistandard: "npm:^17.0.0"
-    stream-browserify: "npm:^3.0.0"
-  languageName: unknown
-  linkType: soft
 
 "supports-color@npm:^5.3.0":
   version: 5.5.0
