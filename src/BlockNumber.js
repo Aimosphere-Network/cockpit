@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Statistic, Grid, Card, Icon } from 'semantic-ui-react'
+import React, {useEffect, useState} from 'react'
+import {Statistic, Card, Icon} from 'semantic-ui-react'
 
-import { useSubstrateState } from './substrate-lib'
+import {useSubstrateState} from './substrate-lib'
 
 function Main(props) {
-  const { api } = useSubstrateState()
-  const { finalized } = props
+  const {api} = useSubstrateState()
+  const {finalized} = props
   const [blockNumber, setBlockNumber] = useState(0)
   const [blockNumberTimer, setBlockNumberTimer] = useState(0)
 
@@ -39,29 +39,27 @@ function Main(props) {
   }, [])
 
   return (
-    <Grid.Column>
-      <Card>
-        <Card.Content textAlign="center">
-          <Statistic
-            className="block_number"
-            label={(finalized ? 'Finalized' : 'Current') + ' Block'}
-            value={blockNumber}
-          />
-        </Card.Content>
-        <Card.Content extra>
-          <Icon name="time" /> {blockNumberTimer}
-        </Card.Content>
-      </Card>
-    </Grid.Column>
+    <Card>
+      <Card.Content textAlign="center">
+        <Statistic
+          className="block_number"
+          label={(finalized ? 'Finalized' : 'Current') + ' Block'}
+          value={blockNumber}
+        />
+      </Card.Content>
+      <Card.Content extra>
+        <Icon name="time"/> {blockNumberTimer}
+      </Card.Content>
+    </Card>
   )
 }
 
 export default function BlockNumber(props) {
-  const { api } = useSubstrateState()
+  const {api} = useSubstrateState()
   return api.derive &&
-    api.derive.chain &&
-    api.derive.chain.bestNumber &&
-    api.derive.chain.bestNumberFinalized ? (
+  api.derive.chain &&
+  api.derive.chain.bestNumber &&
+  api.derive.chain.bestNumberFinalized ? (
     <Main {...props} />
   ) : null
 }

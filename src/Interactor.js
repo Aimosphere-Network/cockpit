@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Grid, Form, Dropdown, Input, Label } from 'semantic-ui-react'
+import React, {useEffect, useState} from 'react'
+import {Form, Dropdown, Input, Label, Container} from 'semantic-ui-react'
 
-import { useSubstrateState } from './substrate-lib'
-import { TxButton, TxGroupButton } from './substrate-lib/components'
+import {useSubstrateState} from './substrate-lib'
+import {TxButton, TxGroupButton} from './substrate-lib/components'
 
 const argIsOptional = arg => arg.type.toString().startsWith('Option<')
 
 function Main(props) {
-  const { api, jsonrpc } = useSubstrateState()
+  const {api, jsonrpc} = useSubstrateState()
   const [status, setStatus] = useState(null)
 
   const [interxType, setInterxType] = useState('EXTRINSIC')
@@ -22,7 +22,7 @@ function Main(props) {
   }
 
   const [formState, setFormState] = useState(initFormState)
-  const { palletRpc, callable, inputParams } = formState
+  const {palletRpc, callable, inputParams} = formState
 
   const getApiType = (api, interxType) => {
     if (interxType === 'QUERY') {
@@ -44,7 +44,7 @@ function Main(props) {
     const palletRPCs = Object.keys(apiType)
       .sort()
       .filter(pr => Object.keys(apiType[pr]).length > 0)
-      .map(pr => ({ key: pr, value: pr, text: pr }))
+      .map(pr => ({key: pr, value: pr, text: pr}))
     setPalletRPCs(palletRPCs)
   }
 
@@ -54,7 +54,7 @@ function Main(props) {
     }
     const callables = Object.keys(getApiType(api, interxType)[palletRpc])
       .sort()
-      .map(c => ({ key: c, value: c, text: c }))
+      .map(c => ({key: c, value: c, text: c}))
     setCallables(callables)
   }
 
@@ -130,20 +130,20 @@ function Main(props) {
   const onPalletCallableParamChange = (_, data) => {
     setFormState(formState => {
       let res
-      const { state, value } = data
+      const {state, value} = data
       if (typeof state === 'object') {
         // Input parameter updated
         const {
           ind,
-          paramField: { type },
+          paramField: {type},
         } = state
         const inputParams = [...formState.inputParams]
-        inputParams[ind] = { type, value }
-        res = { ...formState, inputParams }
+        inputParams[ind] = {type, value}
+        res = {...formState, inputParams}
       } else if (state === 'palletRpc') {
-        res = { ...formState, [state]: value, callable: '', inputParams: [] }
+        res = {...formState, [state]: value, callable: '', inputParams: []}
       } else if (state === 'callable') {
-        res = { ...formState, [state]: value, inputParams: [] }
+        res = {...formState, [state]: value, inputParams: []}
       }
       return res
     })
@@ -161,10 +161,10 @@ function Main(props) {
       : 'Leaving this field as blank will submit a NONE value'
 
   return (
-    <Grid.Column width={8}>
+    <Container>
       <h1>Pallet Interactor</h1>
       <Form>
-        <Form.Group style={{ overflowX: 'auto' }} inline>
+        <Form.Group style={{overflowX: 'auto'}} inline>
           <label>Interaction Type</label>
           <Form.Radio
             label="Extrinsic"
@@ -228,7 +228,7 @@ function Main(props) {
               fluid
               type="text"
               label={paramField.name}
-              state={{ ind, paramField }}
+              state={{ind, paramField}}
               value={inputParams[ind] ? inputParams[ind].value : ''}
               onChange={onPalletCallableParamChange}
             />
@@ -242,7 +242,7 @@ function Main(props) {
             ) : null}
           </Form.Field>
         ))}
-        <Form.Field style={{ textAlign: 'center' }}>
+        <Form.Field style={{textAlign: 'center'}}>
           <InteractorSubmit
             setStatus={setStatus}
             attrs={{
@@ -254,15 +254,15 @@ function Main(props) {
             }}
           />
         </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        <div style={{overflowWrap: 'break-word'}}>{status}</div>
       </Form>
-    </Grid.Column>
+    </Container>
   )
 }
 
 function InteractorSubmit(props) {
   const {
-    attrs: { interxType },
+    attrs: {interxType},
   } = props
   if (interxType === 'QUERY') {
     return <TxButton label="Query" type="QUERY" color="blue" {...props} />
@@ -274,6 +274,6 @@ function InteractorSubmit(props) {
 }
 
 export default function Interactor(props) {
-  const { api } = useSubstrateState()
+  const {api} = useSubstrateState()
   return api.tx ? <Main {...props} /> : null
 }
