@@ -1,16 +1,16 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client';
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 
-import App from './App';
+import App from './App'
 
-const rootId = 'root';
-const rootElement = document.getElementById(rootId);
+const rootId = 'root'
+const rootElement = document.getElementById(rootId)
 if (!rootElement) {
-    throw new Error(`Unable to find element with id '${rootId}'`);
+  throw new Error(`Unable to find element with id '${rootId}'`)
 }
 
 createRoot(rootElement).render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 )

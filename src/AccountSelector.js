@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import {
-  Menu,
-  Button,
-  Dropdown,
-  Container,
-  Icon,
-  Image,
-  Label,
-} from 'semantic-ui-react'
+import { Menu, Button, Dropdown, Container, Icon, Image, Label } from 'semantic-ui-react'
 
 import { useSubstrate, useSubstrateState } from './substrate-lib'
 
 const CHROME_EXT_URL =
   'https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd'
-const FIREFOX_ADDON_URL =
-  'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/'
+const FIREFOX_ADDON_URL = 'https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/'
 
 const acctAddr = acct => (acct ? acct.address : '')
 
@@ -34,15 +25,12 @@ function Main(props) {
     icon: 'user',
   }))
 
-  const initialAddress =
-    keyringOptions.length > 0 ? keyringOptions[0].value : ''
+  const initialAddress = keyringOptions.length > 0 ? keyringOptions[0].value : ''
 
   // Set the initial address
   useEffect(() => {
     // `setCurrentAccount()` is called only when currentAccount is null (uninitialized)
-    !currentAccount &&
-      initialAddress.length > 0 &&
-      setCurrentAccount(keyring.getPair(initialAddress))
+    !currentAccount && initialAddress.length > 0 && setCurrentAccount(keyring.getPair(initialAddress))
   }, [currentAccount, setCurrentAccount, keyring, initialAddress])
 
   const onChange = addr => {
@@ -62,10 +50,7 @@ function Main(props) {
     >
       <Container>
         <Menu.Menu>
-          <Image
-            src={`${process.env.PUBLIC_URL}/assets/substrate-logo.png`}
-            size="mini"
-          />
+          <Image src={`${process.env.PUBLIC_URL}/assets/substrate-logo.png`} size="mini" />
         </Menu.Menu>
         <Menu.Menu position="right" style={{ alignItems: 'center' }}>
           {!currentAccount ? (
@@ -82,13 +67,7 @@ function Main(props) {
             </span>
           ) : null}
           <CopyToClipboard text={acctAddr(currentAccount)}>
-            <Button
-              basic
-              circular
-              size="large"
-              icon="user"
-              color={currentAccount ? 'green' : 'red'}
-            />
+            <Button basic circular size="large" icon="user" color={currentAccount ? 'green' : 'red'} />
           </CopyToClipboard>
           <Dropdown
             search
@@ -119,9 +98,7 @@ function BalanceAnnotation(props) {
     // If the user has selected an address, create a new subscription
     currentAccount &&
       api.query.system
-        .account(acctAddr(currentAccount), balance =>
-          setAccountBalance(balance.data.free.toHuman())
-        )
+        .account(acctAddr(currentAccount), balance => setAccountBalance(balance.data.free.toHuman()))
         .then(unsub => (unsubscribe = unsub))
         .catch(console.error)
 

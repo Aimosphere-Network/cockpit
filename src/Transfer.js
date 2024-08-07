@@ -7,8 +7,7 @@ export default function Main(props) {
   const [status, setStatus] = useState(null)
   const [formState, setFormState] = useState({ addressTo: '', amount: 0 })
 
-  const onChange = (_, data) =>
-    setFormState(prev => ({ ...prev, [data.state]: data.value }))
+  const onChange = (_, data) => setFormState(prev => ({ ...prev, [data.state]: data.value }))
 
   const { addressTo, amount } = formState
 
@@ -32,11 +31,7 @@ export default function Main(props) {
           <Label basic color="teal">
             <Icon name="hand point right" />1 Unit = 1000000000000&nbsp;
           </Label>
-          <Label
-            basic
-            color="teal"
-            style={{ marginLeft: 0, marginTop: '.5em' }}
-          >
+          <Label basic color="teal" style={{ marginLeft: 0, marginTop: '.5em' }}>
             <Icon name="hand point right" />
             Transfer more than the existential amount for account with 0 balance
           </Label>
@@ -66,13 +61,7 @@ export default function Main(props) {
           />
         </Form.Field>
         <Form.Field>
-          <Input
-            fluid
-            label="Amount"
-            type="number"
-            state="amount"
-            onChange={onChange}
-          />
+          <Input fluid label="Amount" type="number" state="amount" onChange={onChange} />
         </Form.Field>
         <Form.Field style={{ textAlign: 'center' }}>
           <TxButton

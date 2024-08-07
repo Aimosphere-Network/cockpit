@@ -1,20 +1,12 @@
-import React, {createRef} from 'react'
-import {
-  Container,
-  Dimmer,
-  Grid,
-  Loader,
-  Message,
-  Sticky,
-  Tab
-} from 'semantic-ui-react'
+import React, { createRef } from 'react'
+import { Container, Dimmer, Grid, Loader, Message, Sticky, Tab } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
-import {SubstrateContextProvider, useSubstrateState} from './substrate-lib'
-import {DeveloperConsole} from './substrate-lib/components'
+import { SubstrateContextProvider, useSubstrateState } from './substrate-lib'
+import { DeveloperConsole } from './substrate-lib/components'
 
 import AccountSelector from './AccountSelector'
-import Agreements from "./Agreements";
+import Agreements from './Agreements'
 import BlockNumber from './BlockNumber'
 import Events from './Events'
 import Interactor from './Interactor'
@@ -23,7 +15,7 @@ import NodeInfo from './NodeInfo'
 import Orders from './Orders'
 
 function Main() {
-  const {apiState, apiError, keyringState} = useSubstrateState()
+  const { apiState, apiError, keyringState } = useSubstrateState()
 
   const loader = text => (
     <Dimmer active>
@@ -49,57 +41,66 @@ function Main() {
   else if (apiState !== 'READY') return loader('Connecting to aimosphere')
 
   if (keyringState !== 'READY') {
-    return loader(
-      'Loading accounts (please review any extension\'s authorization)',
-    )
+    return loader("Loading accounts (please review any extension's authorization)")
   }
 
   const contextRef = createRef()
   const panes = [
-    {menuItem: {key: 'orders', icon: 'cart plus', content: 'Top Up'}, render: () => <Tab.Pane><Orders/></Tab.Pane>},
     {
-      menuItem: {key: 'agreements', icon: 'cogs', content: 'Execute'},
-      render: () => <Tab.Pane><Agreements/></Tab.Pane>
+      menuItem: { key: 'orders', icon: 'cart plus', content: 'Top Up' },
+      render: () => (
+        <Tab.Pane>
+          <Orders />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: { key: 'agreements', icon: 'cogs', content: 'Execute' },
+      render: () => (
+        <Tab.Pane>
+          <Agreements />
+        </Tab.Pane>
+      ),
     },
   ]
 
   return (
     <div ref={contextRef}>
       <Sticky context={contextRef}>
-        <AccountSelector/>
+        <AccountSelector />
       </Sticky>
       <Container>
         <Grid stackable columns="equal">
           <Grid.Row stretched>
             <Grid.Column>
-              <NodeInfo/>
+              <NodeInfo />
             </Grid.Column>
             <Grid.Column>
-              <Metadata/>
+              <Metadata />
             </Grid.Column>
             <Grid.Column>
-              <BlockNumber/>
+              <BlockNumber />
             </Grid.Column>
             <Grid.Column>
-              <BlockNumber finalized/>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column>
-              <Interactor/>
-            </Grid.Column>
-            <Grid.Column>
-              <Events/>
+              <BlockNumber finalized />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column>
-              <Tab panes={panes}/>
+              <Interactor />
+            </Grid.Column>
+            <Grid.Column>
+              <Events />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Tab panes={panes} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Container>
-      <DeveloperConsole/>
+      <DeveloperConsole />
     </div>
   )
 }
@@ -107,7 +108,7 @@ function Main() {
 export default function App() {
   return (
     <SubstrateContextProvider>
-      <Main/>
+      <Main />
     </SubstrateContextProvider>
   )
 }

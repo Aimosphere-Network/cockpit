@@ -1,18 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import {Feed, Button, Container} from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Feed, Button, Container } from 'semantic-ui-react'
 
-import {useSubstrateState} from './substrate-lib'
+import { useSubstrateState } from './substrate-lib'
 
 // Events to be filtered from feed
-const FILTERED_EVENTS = [
-  'system:ExtrinsicSuccess::(phase={"applyExtrinsic":0})',
-]
+const FILTERED_EVENTS = ['system:ExtrinsicSuccess::(phase={"applyExtrinsic":0})']
 
 const eventName = ev => `${ev.section}:${ev.method}`
 const eventParams = ev => JSON.stringify(ev.data)
 
 function Main(props) {
-  const {api} = useSubstrateState()
+  const { api } = useSubstrateState()
   const [eventFeed, setEventFeed] = useState([])
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function Main(props) {
         // loop through the Vec<EventRecord>
         events.forEach(record => {
           // extract the phase, event and the event types
-          const {event, phase} = record
+          const { event, phase } = record
 
           // show what we are busy with
           const evHuman = event.toHuman()
@@ -52,31 +50,18 @@ function Main(props) {
     return () => unsub && unsub()
   }, [api.query.system])
 
-  const {feedMaxHeight = 250} = props
+  const { feedMaxHeight = 250 } = props
 
   return (
     <Container>
-      <h1 style={{float: 'left'}}>Events</h1>
-      <Button
-        basic
-        circular
-        size="mini"
-        color="grey"
-        floated="right"
-        icon="erase"
-        onClick={_ => setEventFeed([])}
-      />
-      <Feed
-        style={{clear: 'both', overflow: 'auto', maxHeight: feedMaxHeight}}
-        events={eventFeed}
-      />
+      <h1 style={{ float: 'left' }}>Events</h1>
+      <Button basic circular size="mini" color="grey" floated="right" icon="erase" onClick={_ => setEventFeed([])} />
+      <Feed style={{ clear: 'both', overflow: 'auto', maxHeight: feedMaxHeight }} events={eventFeed} />
     </Container>
   )
 }
 
 export default function Events(props) {
-  const {api} = useSubstrateState()
-  return api.query && api.query.system && api.query.system.events ? (
-    <Main {...props} />
-  ) : null
+  const { api } = useSubstrateState()
+  return api.query && api.query.system && api.query.system.events ? <Main {...props} /> : null
 }

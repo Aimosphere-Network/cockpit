@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from 'react'
-import {Statistic, Card, Icon} from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Statistic, Card, Icon } from 'semantic-ui-react'
 
-import {useSubstrateState} from './substrate-lib'
+import { useSubstrateState } from './substrate-lib'
 
 function Main(props) {
-  const {api} = useSubstrateState()
-  const {finalized} = props
+  const { api } = useSubstrateState()
+  const { finalized } = props
   const [blockNumber, setBlockNumber] = useState(0)
   const [blockNumberTimer, setBlockNumberTimer] = useState(0)
 
-  const bestNumber = finalized
-    ? api.derive.chain.bestNumberFinalized
-    : api.derive.chain.bestNumber
+  const bestNumber = finalized ? api.derive.chain.bestNumberFinalized : api.derive.chain.bestNumber
 
   useEffect(() => {
     let unsubscribeAll = null
@@ -48,18 +46,15 @@ function Main(props) {
         />
       </Card.Content>
       <Card.Content extra>
-        <Icon name="time"/> {blockNumberTimer}
+        <Icon name="time" /> {blockNumberTimer}
       </Card.Content>
     </Card>
   )
 }
 
 export default function BlockNumber(props) {
-  const {api} = useSubstrateState()
-  return api.derive &&
-  api.derive.chain &&
-  api.derive.chain.bestNumber &&
-  api.derive.chain.bestNumberFinalized ? (
+  const { api } = useSubstrateState()
+  return api.derive && api.derive.chain && api.derive.chain.bestNumber && api.derive.chain.bestNumberFinalized ? (
     <Main {...props} />
   ) : null
 }

@@ -81,9 +81,7 @@ const connect = (state, dispatch) => {
 const retrieveChainInfo = async api => {
   const [systemChain, systemChainType] = await Promise.all([
     api.rpc.system.chain(),
-    api.rpc.system.chainType
-      ? api.rpc.system.chainType()
-      : Promise.resolve(registry.createType('ChainType', 'Live')),
+    api.rpc.system.chainType ? api.rpc.system.chainType() : Promise.resolve(registry.createType('ChainType', 'Live')),
   ])
 
   return {
@@ -111,10 +109,7 @@ const loadAccounts = (state, dispatch) => {
       // Logics to check if the connecting chain is a dev chain, coming from polkadot-js Apps
       // ref: https://github.com/polkadot-js/apps/blob/15b8004b2791eced0dde425d5dc7231a5f86c682/packages/react-api/src/Api.tsx?_pjax=div%5Bitemtype%3D%22http%3A%2F%2Fschema.org%2FSoftwareSourceCode%22%5D%20%3E%20main#L101-L110
       const { systemChain, systemChainType } = await retrieveChainInfo(api)
-      const isDevelopment =
-        systemChainType.isDevelopment ||
-        systemChainType.isLocal ||
-        isTestChain(systemChain)
+      const isDevelopment = systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain)
 
       Keyring.loadAll({ isDevelopment }, allAccounts)
 
@@ -134,8 +129,7 @@ let keyringLoadAll = false
 const SubstrateContextProvider = props => {
   const neededPropNames = ['socket']
   neededPropNames.forEach(key => {
-    initialState[key] =
-      typeof props[key] === 'undefined' ? initialState[key] : props[key]
+    initialState[key] = typeof props[key] === 'undefined' ? initialState[key] : props[key]
   })
 
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -153,11 +147,7 @@ const SubstrateContextProvider = props => {
     dispatch({ type: 'SET_CURRENT_ACCOUNT', payload: acct })
   }
 
-  return (
-    <SubstrateContext.Provider value={{ state, setCurrentAccount }}>
-      {props.children}
-    </SubstrateContext.Provider>
-  )
+  return <SubstrateContext.Provider value={{ state, setCurrentAccount }}>{props.children}</SubstrateContext.Provider>
 }
 
 // prop typechecking
