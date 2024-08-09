@@ -256,11 +256,11 @@ function InteractorSubmit(props) {
     attrs: { interxType },
   } = props
   if (interxType === 'QUERY') {
-    return <TxButton label="Query" type="QUERY" color="blue" {...props} />
+    return <TxButton basic label="Query" type="QUERY" color="blue" {...props} />
   } else if (interxType === 'EXTRINSIC') {
-    return <TxGroupButton {...props} />
+    return <TxGroupButton basic {...props} />
   } else if (interxType === 'RPC' || interxType === 'CONSTANT') {
-    return <TxButton label="Submit" type={interxType} color="blue" {...props} />
+    return <TxButton basic label="Submit" type={interxType} color="blue" {...props} />
   }
 }
 

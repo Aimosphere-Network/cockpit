@@ -10,9 +10,9 @@ import Agreements from './Agreements'
 import BlockNumber from './BlockNumber'
 import Events from './Events'
 import Interactor from './Interactor'
+import Market from './market/Market'
 import Metadata from './Metadata'
 import NodeInfo from './NodeInfo'
-import Orders from './Orders'
 
 function Main() {
   const { apiState, apiError, keyringState } = useSubstrateState()
@@ -50,7 +50,7 @@ function Main() {
       menuItem: { key: 'orders', icon: 'cart plus', content: 'Top Up' },
       render: () => (
         <Tab.Pane>
-          <Orders />
+          <Market />
         </Tab.Pane>
       ),
     },

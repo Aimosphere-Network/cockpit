@@ -13,9 +13,9 @@ function TxButton({
   disabled = false,
   label,
   setStatus,
-  style = null,
   type = 'QUERY',
   txOnClickHandler = null,
+  ...props
 }) {
   // Hooks
   const { api, currentAccount } = useSubstrateState()
@@ -94,7 +94,7 @@ function TxButton({
         }
         setStatus(`😞 Transaction Failed! ${section}.${method}::${errorInfo}`)
       } else if (section + ':' + method === 'system:ExtrinsicSuccess') {
-        setStatus(`❤️️ Transaction successful! tx hash: ${txHash} , Block hash: ${status.asFinalized.toString()}`)
+        setStatus(`👌 Transaction successful! tx hash: ${txHash} , Block hash: ${status.asFinalized.toString()}`)
       }
     })
   }
@@ -257,9 +257,8 @@ function TxButton({
 
   return (
     <Button
-      basic
+      {...props}
       color={color}
-      style={style}
       type="submit"
       onClick={transaction}
       disabled={
