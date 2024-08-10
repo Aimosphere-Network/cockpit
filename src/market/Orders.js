@@ -6,9 +6,9 @@ export default function Main({ orders, selectedOrderId, onOrderSelected }) {
     <Table selectable>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Order ID</Table.HeaderCell>
-          <Table.HeaderCell>Model ID</Table.HeaderCell>
-          <Table.HeaderCell>Total requests</Table.HeaderCell>
+          <Table.HeaderCell>ID</Table.HeaderCell>
+          <Table.HeaderCell>Model</Table.HeaderCell>
+          <Table.HeaderCell>Requests</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 

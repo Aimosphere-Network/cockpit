@@ -1,4 +1,31 @@
 {
   "APP_NAME": "cockpit",
-  "CUSTOM_RPC_METHODS": {}
+  "CUSTOM_RPC_METHODS": {
+    "exchange": {
+      "upload": {
+        "description": "Upload data",
+        "params": [
+          {
+            "name": "key",
+            "type": "Hash"
+          },
+          {
+            "name": "data",
+            "type": "Bytes"
+          }
+        ],
+        "type": "()"
+      },
+      "download": {
+        "description": "Download data",
+        "params": [
+          {
+            "name": "key",
+            "type": "Hash"
+          }
+        ],
+        "type": "Option<Bytes>"
+      }
+    }
+  }
 }

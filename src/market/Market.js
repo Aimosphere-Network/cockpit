@@ -3,14 +3,15 @@ import { Container, Grid } from 'semantic-ui-react'
 
 import { useSubstrateState } from '../substrate-lib'
 
-import BidsList from './BidsList'
+import Bids from './Bids'
 import OrderCreate from './OrderCreate'
-import OrdersList from './OrdersList'
+import Orders from './Orders'
 
 function Main(prop) {
   const { api, currentAccount } = useSubstrateState()
   const [orders, setOrders] = useState({})
   const [currentOrderId, setCurrentOrderId] = useState(null)
+  const [txStatus, setTxStatus] = useState(null)
 
   useEffect(() => {
     let unsub = null
@@ -27,37 +28,32 @@ function Main(prop) {
           acc[orderId] = detail.unwrap()
           return acc
         }, {})
+
         setOrders(orders)
       })
     }
 
     fetchOrders()
     return () => unsub && unsub()
-  }, [api.query.airoMarket, currentAccount, orders])
-
-  const statusUpdate = (status, prevStatus) => {
-    if (status !== prevStatus) {
-      setOrders({})
-    }
-  }
+  }, [api, currentAccount, txStatus])
 
   return (
     <Container>
       <h1>My Orders</h1>
 
-      <Grid stackable columns="equal">
+      <Grid stackable>
         <Grid.Row>
           <Grid.Column>
-            <OrderCreate onStatusUpdate={statusUpdate} />
+            <OrderCreate onStatusUpdate={setTxStatus} />
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row>
+        <Grid.Row columns={2}>
           <Grid.Column>
-            <OrdersList orders={orders} selectedOrderId={currentOrderId} onOrderSelected={setCurrentOrderId} />
+            <Orders orders={orders} selectedOrderId={currentOrderId} onOrderSelected={setCurrentOrderId} />
           </Grid.Column>
           <Grid.Column textAlign="center">
-            <BidsList orderId={currentOrderId} />
+            <Bids orderId={currentOrderId} onStatusUpdate={setTxStatus} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

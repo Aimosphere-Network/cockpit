@@ -6,9 +6,9 @@ import { SubstrateContextProvider, useSubstrateState } from './substrate-lib'
 import { DeveloperConsole } from './substrate-lib/components'
 
 import AccountSelector from './AccountSelector'
-import Agreements from './Agreements'
 import BlockNumber from './BlockNumber'
 import Events from './Events'
+import Execution from './execution/Execution'
 import Interactor from './Interactor'
 import Market from './market/Market'
 import Metadata from './Metadata'
@@ -47,7 +47,7 @@ function Main() {
   const contextRef = createRef()
   const panes = [
     {
-      menuItem: { key: 'orders', icon: 'cart plus', content: 'Top Up' },
+      menuItem: { key: 'market', icon: 'cart plus', content: 'Top Up' },
       render: () => (
         <Tab.Pane>
           <Market />
@@ -55,10 +55,10 @@ function Main() {
       ),
     },
     {
-      menuItem: { key: 'agreements', icon: 'cogs', content: 'Execute' },
+      menuItem: { key: 'execution', icon: 'cogs', content: 'Execute' },
       render: () => (
         <Tab.Pane>
-          <Agreements />
+          <Execution />
         </Tab.Pane>
       ),
     },

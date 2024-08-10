@@ -3,7 +3,7 @@ import { Label, Table } from 'semantic-ui-react'
 import { useSubstrateState } from '../substrate-lib'
 import { TxButton } from '../substrate-lib/components'
 
-export default function Main({ orderId }) {
+export default function Main({ orderId, onStatusUpdate }) {
   const { api, keyring } = useSubstrateState()
   const [bids, setBids] = useState([])
   const [status, setStatus] = useState(null)
@@ -33,6 +33,11 @@ export default function Main({ orderId }) {
     return () => unsub && unsub()
   }, [api.query.airoMarket, keyring, orderId, status])
 
+  const statusUpdate = status => {
+    onStatusUpdate(status)
+    setStatus(status)
+  }
+
   return orderId === null ? (
     <Label basic>Select an order to see the bids</Label>
   ) : (
@@ -56,7 +61,7 @@ export default function Main({ orderId }) {
                 label="Approve"
                 type="SIGNED-TX"
                 color="green"
-                setStatus={setStatus}
+                setStatus={statusUpdate}
                 attrs={{
                   palletRpc: 'airoMarket',
                   callable: 'bidAccept',
