@@ -4,12 +4,13 @@ import { Container, Grid } from 'semantic-ui-react'
 import { useSubstrateState } from '../substrate-lib'
 
 import Agreements from './Agreements'
+import RequestCreate from './RequestCreate'
 import Requests from './Requests'
 
 function Main(prop) {
   const { api, currentAccount } = useSubstrateState()
   const [agreements, setAgreements] = useState({})
-  const [currentAgreementId, setCurrentAgreementId] = useState(null)
+  const [currentAgreement, setCurrentAgreement] = useState({})
   const [currentRequest, setCurrentRequest] = useState({})
 
   useEffect(() => {
@@ -36,6 +37,10 @@ function Main(prop) {
     return () => unsub && unsub()
   }, [api, currentAccount])
 
+  useEffect(() => {
+    setCurrentAgreement({})
+  }, [currentAccount])
+
   return (
     <Container>
       <h1>My Agreements</h1>
@@ -45,19 +50,27 @@ function Main(prop) {
           <Grid.Column>
             <Agreements
               agreements={agreements}
-              selectedAgreementId={currentAgreementId}
-              onAgreementSelected={agreementId => {
-                setCurrentAgreementId(agreementId)
+              selectedAgreementId={currentAgreement.id}
+              onAgreementSelected={(id, modelId) => {
+                setCurrentAgreement({ id, modelId })
                 setCurrentRequest({})
               }}
             />
           </Grid.Column>
-          <Grid.Column></Grid.Column>
+          <Grid.Column>
+            <RequestCreate
+              agreementId={currentAgreement.id}
+              modelId={currentAgreement.modelId}
+              onStatusUpdate={() => {
+                setCurrentRequest({})
+              }}
+            />
+          </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={1}>
           <Grid.Column textAlign="center">
             <Requests
-              agreementId={currentAgreementId}
+              agreementId={currentAgreement.id}
               currentRequest={currentRequest}
               setCurrentRequest={setCurrentRequest}
             />

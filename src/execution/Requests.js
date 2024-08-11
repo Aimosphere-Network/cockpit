@@ -3,7 +3,11 @@ import { Container, Grid, Label, Table } from 'semantic-ui-react'
 
 import { useSubstrateState } from '../substrate-lib'
 
-export default function Main({ agreementId, currentRequest, setCurrentRequest }) {
+function truncate(str, n) {
+  return str?.length > n ? str.slice(0, n - 1) + '…' : str
+}
+
+function Main({ agreementId, currentRequest, setCurrentRequest }) {
   const { api } = useSubstrateState()
   const [requests, setRequests] = useState([])
   const [responses, setResponses] = useState([])
@@ -72,13 +76,7 @@ export default function Main({ agreementId, currentRequest, setCurrentRequest })
     return () => unsub && unsub[0]() && unsub[1]()
   }, [api, agreementId, currentRequest])
 
-  function truncate(str, n) {
-    return str?.length > n ? str.slice(0, n - 1) + '…' : str
-  }
-
-  return agreementId === null ? (
-    <Label basic>Select an agreement to see the requests</Label>
-  ) : (
+  return (
     <Grid stackable columns={3}>
       <Grid.Row>
         <Grid.Column>
@@ -137,4 +135,9 @@ export default function Main({ agreementId, currentRequest, setCurrentRequest })
       </Grid.Row>
     </Grid>
   )
+}
+
+export default function Requests(props) {
+  const { agreementId } = props
+  return agreementId ? <Main {...props} /> : <Label basic>Select an agreement to see the requests</Label>
 }

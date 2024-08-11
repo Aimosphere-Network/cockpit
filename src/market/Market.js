@@ -37,6 +37,10 @@ function Main(prop) {
     return () => unsub && unsub()
   }, [api, currentAccount, txStatus])
 
+  useEffect(() => {
+    setCurrentOrderId(null)
+  }, [currentAccount])
+
   return (
     <Container>
       <h1>My Orders</h1>

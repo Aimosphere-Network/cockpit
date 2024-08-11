@@ -3,7 +3,7 @@ import { Label, Table } from 'semantic-ui-react'
 import { useSubstrateState } from '../substrate-lib'
 import { TxButton } from '../substrate-lib/components'
 
-export default function Main({ orderId, onStatusUpdate }) {
+function Main({ orderId, onStatusUpdate }) {
   const { api, keyring } = useSubstrateState()
   const [bids, setBids] = useState([])
   const [status, setStatus] = useState(null)
@@ -38,9 +38,7 @@ export default function Main({ orderId, onStatusUpdate }) {
     setStatus(status)
   }
 
-  return orderId === null ? (
-    <Label basic>Select an order to see the bids</Label>
-  ) : (
+  return (
     <Table>
       <Table.Header>
         <Table.Row>
@@ -83,4 +81,9 @@ export default function Main({ orderId, onStatusUpdate }) {
       </Table.Footer>
     </Table>
   )
+}
+
+export default function Bids(props) {
+  const { orderId } = props
+  return orderId ? <Main {...props} /> : <Label basic>Select an order to see the bids</Label>
 }

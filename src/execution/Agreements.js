@@ -22,7 +22,7 @@ export default function Main({ agreements, selectedAgreementId, onAgreementSelec
           <Table.Row
             key={agreementId}
             active={selectedAgreementId === agreementId}
-            onClick={() => onAgreementSelected(agreementId)}
+            onClick={() => onAgreementSelected(agreementId, agreements[agreementId].modelId)}
           >
             <Table.Cell>{agreementId}</Table.Cell>
             <Table.Cell>
