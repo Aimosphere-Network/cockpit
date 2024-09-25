@@ -16,8 +16,8 @@ function Main({ agreementId, currentRequest, setCurrentRequest }) {
   useEffect(() => {
     async function fetchRequestBody() {
       let requestBody = {
-        request: currentRequest.requestId && (await api.rpc.exchange.download(currentRequest.requestId)),
-        response: currentRequest.responseId && (await api.rpc.exchange.download(currentRequest.responseId)),
+        request: currentRequest.requestId && (await api.rpc.dx.download(currentRequest.requestId)),
+        response: currentRequest.responseId && (await api.rpc.dx.download(currentRequest.responseId)),
       }
 
       setCurrentRequestBody(requestBody)
@@ -105,11 +105,11 @@ function Main({ agreementId, currentRequest, setCurrentRequest }) {
             </Table.Body>
           </Table>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column width={10}>
           {currentRequest.index && (
             <Container>
               <h4>Details</h4>
-              <Table definition>
+              <Table definition fixed>
                 <Table.Body>
                   <Table.Row>
                     <Table.Cell width={2}>Request ID</Table.Cell>
@@ -117,7 +117,7 @@ function Main({ agreementId, currentRequest, setCurrentRequest }) {
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Request Body</Table.Cell>
-                    <Table.Cell>{currentRequestBody.request?.toHuman()}</Table.Cell>
+                    <Table.Cell>{truncate(currentRequestBody.request?.toHuman(), 100)}</Table.Cell>
                   </Table.Row>
                   <Table.Row>
                     <Table.Cell>Response ID</Table.Cell>

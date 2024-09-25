@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Header, Icon, Label, Segment } from 'semantic-ui-react'
+import { Button, Form, Header, Icon, Label, Segment } from 'semantic-ui-react'
 
 import { useSubstrateState } from '../substrate-lib'
 import { TxButton } from '../substrate-lib/components'
@@ -35,7 +35,68 @@ function HelloWorld({ agreementId, onStatusUpdate }) {
           label="Create Request"
           type="SIGNED-TX"
           setStatus={onSetStatus}
-          txOnClickHandler={() => api.rpc.exchange.upload(hash, json)}
+          txOnClickHandler={() => api.rpc.dx.upload(hash, json)}
+          attrs={{
+            palletRpc: 'airoExecution',
+            callable: 'requestCreate',
+            inputParams: [agreementId, hash],
+            paramFields: [true, true],
+          }}
+        />
+        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+      </Form.Field>
+    </Form>
+  )
+}
+
+function Resnet({ agreementId, onStatusUpdate }) {
+  const { api } = useSubstrateState()
+  const [content, setContent] = useState({ image: '', name: 'Choose File' })
+  const [status, setStatus] = useState(null)
+
+  const onChange = e => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+
+    reader.onloadend = () => {
+      const base64String = reader.result
+      setContent(prev => ({ ...prev, image: base64String, name: file.name }))
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const onSetStatus = nextStatus => {
+    onStatusUpdate(nextStatus, status)
+    setStatus(nextStatus)
+  }
+
+  const fileInputRef = React.createRef()
+
+  const json = JSON.stringify({ image: content.image })
+  console.log(json)
+  const hash = blake2AsHex(json)
+  console.log(hash)
+  return (
+    <Form textAlign="left">
+      <Form.Field>
+        <label>Image </label>
+        <Button
+          htmlFor="image"
+          content={content.name}
+          labelPosition="left"
+          icon="file"
+          onClick={() => fileInputRef.current.click()}
+        />
+        <input ref={fileInputRef} type="file" hidden name="image" onChange={onChange} />
+      </Form.Field>
+      <Form.Field>
+        <TxButton
+          label="Create Request"
+          type="SIGNED-TX"
+          setStatus={onSetStatus}
+          txOnClickHandler={() => {
+            api.rpc.dx.upload(hash, json)
+          }}
           attrs={{
             palletRpc: 'airoExecution',
             callable: 'requestCreate',
@@ -54,6 +115,8 @@ function DispatchModel(props) {
   switch (modelId.toHuman()) {
     case 'hello-world':
       return <HelloWorld {...props} />
+    case 'resnet':
+      return <Resnet {...props} />
     default:
       return (
         <Label basic color="red">

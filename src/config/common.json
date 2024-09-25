@@ -1,7 +1,7 @@
 {
   "APP_NAME": "aimosphere",
   "CUSTOM_RPC_METHODS": {
-    "exchange": {
+    "dx": {
       "upload": {
         "description": "Upload data",
         "params": [
