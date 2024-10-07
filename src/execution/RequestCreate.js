@@ -73,9 +73,7 @@ function Resnet({ agreementId, onStatusUpdate }) {
   const fileInputRef = React.createRef()
 
   const json = JSON.stringify({ image: content.image })
-  console.log(json)
   const hash = blake2AsHex(json)
-  console.log(hash)
   return (
     <Form textAlign="left">
       <Form.Field>
@@ -113,9 +111,9 @@ function Resnet({ agreementId, onStatusUpdate }) {
 function DispatchModel(props) {
   const { modelId } = props
   switch (modelId.toHuman()) {
-    case 'hello-world':
+    case '0xf97fc2fdeffdaacdf4c3f35de1bb9c86faa021aa6d3e4d63fb2f910dac43198a':
       return <HelloWorld {...props} />
-    case 'resnet':
+    case '0xa8a8481b033d25fb3d78e51b679669781ec021dc2bbc719918c702f8ada5c844':
       return <Resnet {...props} />
     default:
       return (
@@ -133,7 +131,7 @@ function Main(props) {
       <Header as="h4">
         <Icon name="cog" />
         <Header.Content>
-          {modelId.toHuman()}
+          {modelId.toHuman().substring(0, 40)}...
           <Header.Subheader>Model</Header.Subheader>
         </Header.Content>
       </Header>

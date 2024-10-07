@@ -39,12 +39,12 @@ function Main({ orderId, onStatusUpdate }) {
   }
 
   return (
-    <Table>
+    <Table fixed>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Provider</Table.HeaderCell>
-          <Table.HeaderCell>Price/Request</Table.HeaderCell>
-          <Table.HeaderCell></Table.HeaderCell>
+          <Table.HeaderCell width={4}>Price/Request</Table.HeaderCell>
+          <Table.HeaderCell width={4}></Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 

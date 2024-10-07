@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form } from 'semantic-ui-react'
 import { TxButton } from '../substrate-lib/components'
+import { blake2AsHex } from '@polkadot/util-crypto'
 
 export default function Main({ onStatusUpdate }) {
   const [status, setStatus] = useState(null)
@@ -45,7 +46,7 @@ export default function Main({ onStatusUpdate }) {
             attrs={{
               palletRpc: 'airoMarket',
               callable: 'orderCreate',
-              inputParams: [formState.modelId, formState.requestsTotal],
+              inputParams: [blake2AsHex(formState.modelId), formState.requestsTotal],
               paramFields: [true, true],
             }}
           />
