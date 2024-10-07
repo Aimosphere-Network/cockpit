@@ -45,7 +45,7 @@ function Main(prop) {
     <Container>
       <h1>My Orders</h1>
 
-      <Grid stackable>
+      <Grid stackable divided='vertically'>
         <Grid.Row>
           <Grid.Column>
             <OrderCreate onStatusUpdate={setTxStatus} />

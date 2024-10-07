@@ -7,13 +7,13 @@ export default function Main({ agreements, selectedAgreementId, onAgreementSelec
   const { keyring } = useSubstrateState()
 
   return (
-    <Table selectable>
+    <Table selectable fixed>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>ID</Table.HeaderCell>
+          <Table.HeaderCell width={2}>ID</Table.HeaderCell>
           <Table.HeaderCell>Provider</Table.HeaderCell>
           <Table.HeaderCell>Model</Table.HeaderCell>
-          <Table.HeaderCell>Requests</Table.HeaderCell>
+          <Table.HeaderCell width={3}>Requests</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
